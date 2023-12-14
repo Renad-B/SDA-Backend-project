@@ -26,6 +26,7 @@ export const getAllCategory = async (req: Request, res: Response, next: NextFunc
   }
 }
 
+//test
 export const createCategory = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { name } = req.body
