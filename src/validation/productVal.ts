@@ -22,7 +22,7 @@ export const createProductValidation = [
   check('description')
     .trim()
     .notEmpty()
-    .withMessage('name is missing')
+    .withMessage('description is missing')
     .isLength({ min: 5, max: 300 })
     .withMessage('product description must be between 5-300 character long'),
   check('categoryId').trim().notEmpty().withMessage('category id is missing'),

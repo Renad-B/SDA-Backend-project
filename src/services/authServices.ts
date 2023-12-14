@@ -17,7 +17,7 @@ export const handleLoginService = async (req: Request, res: Response) => {
     throw createHttpError(401, 'User is banned')
   }
 
-  const accessToken = JWT.sign({ _id: user._id }, dev.app.ACCESS_TOKEN_SECRET, {
+  const accessToken = JWT.sign({ _id: user._id }, String(dev.app.ACCESS_TOKEN_SECRET), {
     expiresIn: '1h',
   })
 

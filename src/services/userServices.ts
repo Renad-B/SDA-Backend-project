@@ -159,7 +159,7 @@ export const forgetPasswordService = async (email: string) => {
     throw createHttpError(404, 'User does not exist')
   }
 
-  const token = jwt.sign({ email: email }, dev.app.jwtResetPasswordKey, {
+  const token = jwt.sign({ email: email },String(dev.app.jwtResetPasswordKey), {
     expiresIn: '15m',
   })
   const emailData = {
@@ -174,7 +174,7 @@ export const forgetPasswordService = async (email: string) => {
 }
 
 export const resetPasswordService = async (token: string, password: string) => {
-  const decoded = jwt.verify(token, dev.app.jwtResetPasswordKey) as JwtPayload
+  const decoded = jwt.verify(token, String(dev.app.jwtResetPasswordKey)) as JwtPayload
 
   if (!decoded) {
     throw createHttpError(400, 'Token is invalid')

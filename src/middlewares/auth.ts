@@ -16,7 +16,7 @@ export const isLoggedIn = async (req: customerRequest, res: Response, next: Next
       throw createHttpError(401, ' please login again')
     }
 
-    const decoded = (await JWT.verify(accessToken, dev.app.ACCESS_TOKEN_SECRET)) as JwtPayload
+    const decoded = (await JWT.verify(accessToken, String(dev.app.ACCESS_TOKEN_SECRET))) as JwtPayload
     if (!decoded) {
       throw createHttpError(401, 'Access token is not valid')
     }

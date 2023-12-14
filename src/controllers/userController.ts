@@ -113,7 +113,7 @@ export const activateUser = async (req: Request, res: Response, next: NextFuncti
     if (!token) {
       throw createHttpError(404, 'Please provide a valid token')
     }
-    const decoded = jwt.verify(token, dev.app.jwtUserActivationkey)
+    const decoded = jwt.verify(token, String(dev.app.jwtUserActivationkey))
 
     await User.create(decoded)
 
