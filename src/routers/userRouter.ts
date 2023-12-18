@@ -55,8 +55,8 @@ router.get('/:_id', getUserById)
 //POST: /users/register -> register a new user
 router.post(
   '/register',
-  validateCreateUser,
-  runValidation,
+  // validateCreateUser,
+  // runValidation,
   uploadUser.single('image'),
   registerUser
 )

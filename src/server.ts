@@ -22,7 +22,7 @@ app.use(morgan('dev'))
 app.use(cookieParser())
 
 //for images, this will acess the image from the frontend 
-app.use('/public', express.static('public'))
+app.use('/public/images', express.static('public'))
 
 //for front end connection -> requseting will be via cors 
 app.use(cors({

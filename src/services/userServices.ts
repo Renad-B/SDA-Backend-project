@@ -101,14 +101,13 @@ export const createUserService = async (req: Request, res: Response, next: NextF
       html: `<h1> Hello ${name} </h1>
 
     <p> Please activate your account by
-    <a href= "http://localhost:8080/users/activate/${token}"> clicking on this link </a> </p>`,
+    <a href= "http://localhost:3001/users/activate/${token}"> clicking on this link </a> </p>`,
     }
 
     await handleSendEmail(emailData)
 
     res.status(200).json({
       message: 'check your email adress to activate your account',
-      token: token,
     })
   } catch (error) {
     next(error)

@@ -20,7 +20,7 @@ import { createHttpError } from '../errors/createError'
 export const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
   try {
     let page = Number(req.query.page) || 1
-    const limit = Number(req.query.limit) || 3
+    const limit = Number(req.query.limit) || 4
 
     const result = await getAllUsersService(page, limit, req)
 
