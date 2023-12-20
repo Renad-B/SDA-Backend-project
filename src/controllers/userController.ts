@@ -73,7 +73,7 @@ export const updateUser = async (req: Request, res: Response, next: NextFunction
   try {
     const { _id } = req.params
     const user = await updateUserService(_id, req)
-    
+
     res.status(200).json({
       message: 'users is updated successfully!',
       payload: user,
@@ -109,14 +109,23 @@ export const deleteUser = async (req: Request, res: Response, next: NextFunction
 export const activateUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const token = req.body.token
+    console.log(token)
 
     if (!token) {
       throw createHttpError(404, 'Please provide a valid token')
     }
     const decoded = jwt.verify(token, String(dev.app.jwtUserActivationkey))
-
+    console.log(decoded)
     await User.create(decoded)
+    //if it wont work do this again
 
+    // .then((savedUser) => {
+    //   console.log('User saved successfully:', savedUser);
+    // })
+    // .catch((err) => {
+    //   console.error('Error saving user:', err);
+    // })
+    
     res.status(201).json({
       message: 'user is registered successfully',
     })
