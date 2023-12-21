@@ -38,7 +38,7 @@ const productSchema = new Schema(
 
     image: {
       type: String,
-      default: 'public/products/products.jpeg',
+      default: 'public/images/products/product.jpeg',
     },
 
     shipping: {

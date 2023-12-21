@@ -47,7 +47,7 @@ router.get('/:slug', getProductBySlug)
 //POST: /products -> create a new product
 router.post(
   '/',
-  uploadProduct.single('image'),
+  // uploadProduct.single('image'),
   createProduct
 )
 // Delete: /products/:slug -> delete a product

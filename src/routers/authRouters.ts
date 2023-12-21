@@ -10,7 +10,7 @@ const router = Router()
 // router.post('/logout', isLoggedIn, handleLogout)
 
 //POST :/auth / login -> login the user
-router.post('/login', handleLogin)
+router.post('/login',isLoggedOut, handleLogin)
 //POST :/auth / logout -> login the user
-router.post('/logout', handleLogout)
+router.post('/logout',isLoggedIn, handleLogout)
 export default router
