@@ -12,6 +12,8 @@ interface customerRequest extends Request {
 export const isLoggedIn = async (req: customerRequest, res: Response, next: NextFunction) => {
   try {
     const accessToken = req.cookies.access_token
+    console.log('Access Token:', accessToken);
+
     if (!accessToken) {
       throw createHttpError(401, ' please login again')
     }

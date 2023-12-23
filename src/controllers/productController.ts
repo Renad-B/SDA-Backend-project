@@ -11,19 +11,20 @@ import { createHttpError } from '../errors/createError'
 
 export const getAllProducts = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    let page = Number(req.query.page) || 1
-    const limit = Number(req.query.limit) || 3
-    const minPrice = Number(req.query.minPrice) || 0
-    const maxPrice = Number(req.query.maxPrice) || 2000000
+    // let page = Number(req.query.page) || 1
+    // const limit = Number(req.query.limit) || 3
+    // const minPrice = Number(req.query.minPrice) || 0
+    // const maxPrice = Number(req.query.maxPrice) || 2000000
 
-    const result = await getAllProductService(page, limit, minPrice, maxPrice, req)
+    // const result = await getAllProductService(page, limit, minPrice, maxPrice, req)
+    const result = await getAllProductService(req)
 
     res.status(200).send({
       message: 'Get all products',
       payload: {
         products: result.products,
-        totalPage: result.totalPage,
-        currentPage: result.currentPage,
+        // totalPage: result.totalPage,
+        // currentPage: result.currentPage,
       },
     })
   } catch (error) {

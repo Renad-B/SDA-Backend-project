@@ -9,10 +9,10 @@ import { ICategory } from '../interface/categoryInterface'
 
 
 export const getAllProductService = async (
-  page: number,
-  limit: number,
-  minPrice: number,
-  maxPrice: number,
+  // page: number,
+  // limit: number,
+  // minPrice: number,
+  // maxPrice: number,
   req: Request
 ) => {
   const count = await Product.countDocuments()
@@ -20,32 +20,33 @@ export const getAllProductService = async (
     throw createHttpError(404, 'There are no products yet to show, please add products.')
   }
 
-  //pagination
-  const totalPage = Math.ceil(count / limit)
-  if (page > totalPage) {
-    page = totalPage
-  }
-  const skip = (page - 1) * limit
+  // pagination
+  // const totalPage = Math.ceil(count / limit)
+  // if (page > totalPage) {
+  //   page = totalPage
+  // }
+  // const skip = (page - 1) * limit
   const { search } = req.query
   let filter = {}
   if (search) {
     const searchRegExp = new RegExp('.*' + search + '.*', 'i')
 
-    //Search or filter by price
+    // Search or filter by price
     filter = {
       $or: [{ name: { $regex: searchRegExp } }, { description: { $regex: searchRegExp } }],
     }
-  } else if (minPrice || maxPrice) {
-    filter = { $and: [{ price: { $gte: minPrice } }, { price: { $lte: maxPrice } }] }
-  }
+  // } else if (minPrice || maxPrice) {
+  //   filter = { $and: [{ price: { $gte: minPrice } }, { price: { $lte: maxPrice } }] }
+  // }
   const options = {
     __v: 0,
   }
-
-  const products: IProduct[] = await Product.find(filter, options)
+  }
+  // const products: IProduct[] = await Product.find(filter, options)
+  const products: IProduct[] = await Product.find(filter)
     .sort({ price: 1 })
-    .skip(skip)
-    .limit(limit)
+    // .skip(skip)
+    // .limit(limit)
     .populate('categoryId')
   if (products.length == 0) {
     throw createHttpError(404, 'No products with those filters were found')
@@ -53,8 +54,8 @@ export const getAllProductService = async (
 
   return {
     products,
-    totalPage,
-    currentPage: page,
+    // totalPage,
+    // currentPage: page,
   }
 }
 
