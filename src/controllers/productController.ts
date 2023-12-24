@@ -48,8 +48,15 @@ export const getProductBySlug = async (req: Request, res: Response, next: NextFu
 export const createProduct = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { name, price, quantity, description, sold, shipping, categoryId } = req.body
+    const image = req.file?.path
+    if (req.file) {
+      console.log(req.file.path)
+      // rest of your code
+    } else {
+      console.log('No file uploaded')
+    }
 
-    const newItem = await createNewProductService(name, price, quantity, description, sold, shipping, categoryId)
+    const newItem = await createNewProductService(name, price, quantity, description, sold, shipping, categoryId,req)
 
     res.status(201).send({ 
       message: 'Product is created',

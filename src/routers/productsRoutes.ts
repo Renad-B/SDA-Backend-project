@@ -21,8 +21,6 @@ router.get('/:slug', getProductBySlug)
 //POST: /products -> create a new product
 router.post(
   '/',
-  createProductValidation,
-  runValidation,
   uploadProduct.single('image'),
   isLoggedIn,
   isAdmin,

@@ -4,7 +4,7 @@ import { createHttpError } from '../errors/createError'
 
 export const deleteImage = async (imagePath: string) => {
   try {
-    // imagePath !== './public/images/users/no-profile-img-default.wepb' && (await fs.unlink(imagePath))
+    imagePath !== './public/images/users/no-profile-img-default.wepb' && (await fs.unlink(imagePath))
     await fs.unlink(imagePath)
   } catch (error) {
     // if image does not exist, just delete user.

@@ -74,9 +74,9 @@ export const removeProductBySlug = async (slug: string): Promise<IProduct> => {
   const product = await Product.findOneAndDelete({
     slug: slug,
   })
-  if (product && product.image) {
-    await deleteImage(product.image)
-  }
+  // if (product && product.image) {
+  //   await deleteImage(product.image)
+  // }
   if (!product) {
     throw createHttpError(404, 'Product not found with this slug!')
   }
@@ -90,7 +90,8 @@ export const createNewProductService = async (
   description: string,
   sold: boolean,
   shipping: string,
-  categoryId: ICategory['_id']
+  categoryId: ICategory['_id'],
+  req:Request
 ) => {
   const productExist = await Product.exists({ name })
 
@@ -107,6 +108,7 @@ export const createNewProductService = async (
     sold,
     shipping,
     categoryId,
+    image: req.file?.path
   })
 
   await newProduct.save()

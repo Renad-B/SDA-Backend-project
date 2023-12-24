@@ -15,40 +15,39 @@ export const getAllUsersService = async (page: number, limit: number, req: Reque
   if (count <= 0) {
     throw createHttpError(404, 'There are no user yet to show.')
   }
-  // const totalPage = Math.ceil(count / limit)
+  const totalPage = Math.ceil(count / limit)
 
-  // if (page > totalPage) {
-  //   page = totalPage
-  // }
-  // const skip = (page - 1) * limit
-  // const { search } = req.query
-  // let filter = {}
-  // if (search) {
-  //   const searchRegExp = new RegExp('.*' + search + '.*', 'i')
+  if (page > totalPage) {
+    page = totalPage
+  }
+  const skip = (page - 1) * limit
+  const { search } = req.query
+  let filter = {}
+  if (search) {
+    const searchRegExp = new RegExp('.*' + search + '.*', 'i')
 
-  //   filter = {
-  //     $or: [
-  //       { name: { $regex: searchRegExp } },
-  //       { email: { $regex: searchRegExp } },
-  //       { phone: { $regex: searchRegExp } },
-  //     ],
-  //   }
-  // }
-  // const options = {
-  //   password: 0,
-  //   __v: 0,
-  // }
+    filter = {
+      $or: [
+        { name: { $regex: searchRegExp } },
+        { email: { $regex: searchRegExp } },
+        { phone: { $regex: searchRegExp } },
+      ],
+    }
+  }
+  const options = {
+    password: 0,
+    __v: 0,
+  }
 
-  // const users = await User.find(filter, options)
-  const users = await User.find()
-    // .populate('orders')
-    // .sort({ name: 1 })
-    // // .skip(skip)
-    // .limit(limit)
+  const users = await User.find(filter, options)
+    .populate('orders')
+    .sort({ name: 1 })
+    .skip(skip)
+    .limit(limit)
   return {
     users,
-    // totalPage,
-    // currentPage: page,
+    totalPage,
+    currentPage: page,
   }
 }
 
@@ -130,21 +129,13 @@ export const deleteUserSevice = async (id: string) => {
 export const updateUserService = async (id: string, req: Request) => {
   const newData = req.body
   const user = await User.findOneAndUpdate({ _id: id }, newData, { new: true })
+  console.log(user)
   if (!user) {
     const error = createHttpError(404, "User with this id doesn't exist")
     throw error
   }
   return user
 }
-// export const updateUserService = async (id: string, req: Request) => {
-//     const {name, _id} = req.body
-//     const user = await User.findOneAndUpdate(_id, {name:name},{ new: true })
-//     if (!user) {
-//       const error = createHttpError(404, "User with this id doesn't exist")
-//       throw error
-//     }
-//     return user
-//   }
 
 export const banUserById = async (id: string) => {
   const user = await User.findByIdAndUpdate({ _id: id }, { isBanned: true })
@@ -168,13 +159,13 @@ export const forgetPasswordService = async (email: string) => {
     throw createHttpError(404, 'User does not exist')
   }
 
-  const token = jwt.sign({ email: email },String(dev.app.jwtResetPasswordKey), {
+  const token = jwt.sign({ email: email }, String(dev.app.jwtResetPasswordKey), {
     expiresIn: '15m',
   })
   const emailData = {
     email: email,
     subject: 'Reset your password',
-    html: `<h1>Hello ${user.name}</h1><p>Please reset your password by clicking the following link</p><a href="http://127.0.0.1:3002/uesrs/reset-password/${token}">Reset password`,
+    html: `<h1>Hello ${user.name}</h1><p>Please reset your password by clicking the following link</p><a href="http://localhost:3000/users/reset-password/${token}">Reset password`,
   }
 
   handleSendEmail(emailData)

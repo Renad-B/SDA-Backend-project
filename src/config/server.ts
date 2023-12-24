@@ -12,6 +12,7 @@ export const dev = {
     jwtResetPasswordKey: process.env.JWT_RESET_PASSWORD_KEY,
   },
   db: {
-    url: process.env.MONGODB_URL || 'mongodb://127.0.0.1:27017/e-commerce-db',
+    url: String(process.env.MONGODB_URL)
   },
 }
+// || 'mongodb://127.0.0.1:27017/e-commerce-db'
