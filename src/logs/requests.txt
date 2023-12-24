@@ -7435,3 +7435,7 @@ Method: GET, Path: /api/orders, Date: 12/24/2023, Time: 8:58:30 AM
 Method: OPTIONS, Path: /api/auth/login, Date: 12/24/2023, Time: 8:58:42 AM
 Method: POST, Path: /api/auth/login, Date: 12/24/2023, Time: 8:58:42 AM
 Method: GET, Path: /api/users, Date: 12/24/2023, Time: 8:58:43 AM
+Method: GET, Path: /api/categories, Date: 12/24/2023, Time: 9:01:32 AM
+Method: GET, Path: /api/products, Date: 12/24/2023, Time: 9:01:32 AM
+Method: GET, Path: /public/images/products/product.jpeg, Date: 12/24/2023, Time: 9:01:32 AM
+Method: GET, Path: /public/images/products/1703391919073-download.jpeg, Date: 12/24/2023, Time: 9:01:32 AM
