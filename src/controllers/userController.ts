@@ -28,8 +28,8 @@ export const getAllUsers = async (req: Request, res: Response, next: NextFunctio
       message: 'All users are fetched successfully!',
       payload: {
         users: result.users,
-        totalPage: result.totalPage,
-        currentPage: result.currentPage,
+        // totalPage: result.totalPage,
+        // currentPage: result.currentPage,
       },
     })
   } catch (error) {

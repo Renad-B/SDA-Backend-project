@@ -15,39 +15,40 @@ export const getAllUsersService = async (page: number, limit: number, req: Reque
   if (count <= 0) {
     throw createHttpError(404, 'There are no user yet to show.')
   }
-  const totalPage = Math.ceil(count / limit)
+  // const totalPage = Math.ceil(count / limit)
 
-  if (page > totalPage) {
-    page = totalPage
-  }
-  const skip = (page - 1) * limit
-  const { search } = req.query
-  let filter = {}
-  if (search) {
-    const searchRegExp = new RegExp('.*' + search + '.*', 'i')
+  // if (page > totalPage) {
+  //   page = totalPage
+  // }
+  // const skip = (page - 1) * limit
+  // const { search } = req.query
+  // let filter = {}
+  // if (search) {
+  //   const searchRegExp = new RegExp('.*' + search + '.*', 'i')
 
-    filter = {
-      $or: [
-        { name: { $regex: searchRegExp } },
-        { email: { $regex: searchRegExp } },
-        { phone: { $regex: searchRegExp } },
-      ],
-    }
-  }
+  //   filter = {
+  //     $or: [
+  //       { name: { $regex: searchRegExp } },
+  //       { email: { $regex: searchRegExp } },
+  //       { phone: { $regex: searchRegExp } },
+  //     ],
+  //   }
+  // }
   const options = {
     password: 0,
     __v: 0,
   }
 
-  const users = await User.find(filter, options)
+  // const users = await User.find(filter, options)
+  const users = await User.find()
     .populate('orders')
-    .sort({ name: 1 })
-    .skip(skip)
-    .limit(limit)
+    // .sort({ name: 1 })
+    // .skip(skip)
+    // .limit(limit)
   return {
     users,
-    totalPage,
-    currentPage: page,
+    // totalPage,
+    // currentPage: page,
   }
 }
 
