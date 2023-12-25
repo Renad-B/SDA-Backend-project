@@ -10,10 +10,11 @@ import {
   registerUser,
   resetPassword,
   unbanUser,
+  updateRole,
   updateUser,
 } from '../controllers/userController'
 import { uploadUser } from '../middlewares/uploadFile'
-import { validateCreateUser, validateUpdateUser } from '../validation/userVal'
+import { validateUpdateUser } from '../validation/userVal'
 import { runValidation } from '../validation/runValidation'
 import { isAdmin, isLoggedIn, isLoggedOut } from '../middlewares/auth'
 
@@ -38,6 +39,8 @@ router.put('/:_id([0-9a-fA-F]{24})', runValidation,validateUpdateUser, uploadUse
 router.delete('/:_id([0-9a-fA-F]{24})', isLoggedIn,isAdmin, deleteUser)
 //PUT: /user/:ban -> ban the user
 router.put('/ban/:id([0-9a-fA-F]{24})', isLoggedIn, isAdmin, banUser)
+//PUT: /user/:change the role -> change the role of the user
+router.put('/role/:id([0-9a-fA-F]{24})', isLoggedIn, isAdmin, updateRole)
 //PUT: /user/:unban -> unban the user
 router.put('/unban/:id([0-9a-fA-F]{24})', isLoggedIn, isAdmin, unbanUser)
 //POST :/user/forget-password-> handle forget password

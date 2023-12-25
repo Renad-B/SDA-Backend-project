@@ -152,6 +152,14 @@ export const unbanUserById = async (id: string) => {
     throw error
   }
 }
+//New for the user role
+export const updateRoleById = async (id: string) => {
+  const user = await User.findByIdAndUpdate(id , { isAdmin: true })
+  if (!user) {
+    const error = createHttpError(404, `user is not found with this id: ${id}`)
+    throw error
+  }
+}
 
 export const forgetPasswordService = async (email: string) => {
   const user = await User.findOne({ email: email })

@@ -11,6 +11,7 @@ import {
   getSingleUserService,
   resetPasswordService,
   unbanUserById,
+  updateRoleById,
   updateUserService,
 } from '../services/userServices'
 import { dev } from '../config/server'
@@ -153,6 +154,23 @@ export const unbanUser = async (req: Request, res: Response, next: NextFunction)
     await unbanUserById(id)
     res.status(200).json({
       message: 'unbanned the user ',
+    })
+  } catch (error) {
+    if (error instanceof mongoose.Error.CastError) {
+      const error = createHttpError(400, `Id format is not valid `)
+      next(error)
+    } else {
+      next(error)
+    }
+  }
+}
+//New for the user role
+export const updateRole = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id } = req.params
+    await updateRoleById(id)
+    res.status(200).json({
+      message: 'update the user role',
     })
   } catch (error) {
     if (error instanceof mongoose.Error.CastError) {
